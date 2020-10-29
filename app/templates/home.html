@@ -17,24 +17,23 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Home</a>
+                <a class="nav-link text-white" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">About</a>
+                <a class="nav-link text-white" href="{% url 'about' %}">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Student-Login</a>
+                <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Teacher-Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#">Contact us</a>
+                <a class="nav-link text-white" href="{% url 'contact_us' %}">Contact us</a>
               </li>
             </ul>
           </div>
         </nav>
     </header>
+
+    {% block content %}
 
     <!--    Images Carousel-->
     <section>
@@ -125,6 +124,8 @@
       </div>
     </section>
 
+    {% endblock %}
+
     <!--Footer section-->
     <footer class="page-footer font-small bg-dark" style="padding-top: 1em">
 
@@ -171,13 +172,10 @@
             <h6 class="text-uppercase font-weight-bold">PROJECT LINKS</h6>
             <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
             <p>
-              <a style="color: inherit" href="#!">Home</a>
+              <a style="color: inherit" href="{% url 'home' %}">Home</a>
             </p>
             <p>
-              <a style="color: inherit" href="#!">Student login</a>
-            </p>
-            <p>
-              <a style="color: inherit" href="#!">Teacher login</a>
+              <a style="color: inherit" href="#!">Login</a>
             </p>
             <p>
               <a style="color: inherit" href="#!">About</a>
