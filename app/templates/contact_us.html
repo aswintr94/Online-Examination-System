@@ -1,5 +1,5 @@
 {% extends 'home.html' %}
-
+{% block title %} Contact us {% endblock %}
 {% block content %}
 
 <div class="bg-light w-100 p-3 mt-3">
@@ -8,47 +8,52 @@
 
 <div class="container">
     <div class="row">
-    <div class="col-6">
-        <div class="p-4 mb-3" style="color: #008080">
-            <h5>ADDRESS</h5>
-            <p> New York, NY 10012, US</p>
+        <div class="col-6">
+            <div class="p-4 mb-3" style="color: #008080">
+                <h5>ADDRESS</h5>
+                <p> New York, NY 10012, US</p>
+            </div>
+            <div class="p-4 mb-3" style="color: #008080">
+                <h5>BUSINESS HOURS</h5>
+                <p>Monday to Saturday: 9 AM to 6 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+            <div class="p-4 mb-3" style="color: #008080">
+                <h5>TELEPHONE</h5>
+                <p>+91 838498234</p>
+                <p>+91 743248432</p>
+            </div>
         </div>
-        <div class="p-4 mb-3" style="color: #008080">
-            <h5>BUSINESS HOURS</h5>
-            <p>Monday to Saturday: 9 AM to 6 PM</p>
-            <p>Sunday: Closed</p>
-        </div>
-        <div class="p-4 mb-3" style="color: #008080">
-            <h5>TELEPHONE</h5>
-            <p>+91 838498234</p>
-            <p>+91 743248432</p>
-        </div>
-    </div>
 
 
-    <div class="col-6 mt-2 p-3">
-        <h5 style="color: #008080">DROP US A LINE SO THAT WE CAN HEAR FROM YOU</h5>
-        <form style="color: #008080">
-            <div class="form-group">
-                <label for="InputName4">Name</label>
-                <input class="form-control" type="text" id="InputName4">
-            </div>
-            <div class="form-group">
-                <label for="InputEmail4">Email</label>
-                <input class="form-control" type="email" id="InputEmail4">
-            </div>
-            <div class="form-group">
-                <label for="InputName4">Mobile</label>
-                <input class="form-control" type="text" id="InputMobile4">
-            </div>
-            <div class="form-group">
-                <label for="InputMessage4">Message</label>
-                <textarea class="form-control" id="InputMessage4" rows="3"></textarea>
-            </div>
-        </form>
+        <div class="col-6 mt-2 p-3">
+            <h5 style="color: #008080">DROP US A LINE SO THAT WE CAN HEAR FROM YOU</h5>
+            <form style="color: #008080">
+                <div class="form-group">
+                    <label for="InputName4">Name</label>
+                    <input class="form-control" type="text" id="InputName4">
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail4">Email</label>
+                    <input class="form-control" type="email" id="InputEmail4">
+                </div>
+                <div class="form-group">
+                    <label for="InputName4">Mobile</label>
+                    <input class="form-control" type="text" id="InputMobile4">
+                </div>
+                <div class="form-group">
+                    <label for="InputMessage4">Message</label>
+                    <textarea class="form-control" id="InputMessage4" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
     </div>
+    <!--Google map-->
+    <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px;overflow:hidden; padding-bottom:56.25%; position:relative; height:0;">
+      <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+        style="border:0;left:0; top:0; height:90%; width:100%; position:absolute;" allowfullscreen></iframe>
     </div>
-
+    <!--Google Maps-->
 </div>
 
 {% endblock %}
