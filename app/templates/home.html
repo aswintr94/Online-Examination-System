@@ -11,7 +11,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">Online Examination System</a>
+          <a class="navbar-brand" href="{% url 'home' %}">Online Examination System</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -24,6 +24,17 @@
               <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'about' %}">About</a>
               </li>
+              {% if request.session.user %}
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'dashboard' %}">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">My Account</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'logout' %}">Log out</a>
+              </li>
+              {% else %}
               <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'register' %}">Register</a>
               </li>
@@ -33,6 +44,7 @@
               <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'contact_us' %}">Contact us</a>
               </li>
+              {% endif %}
             </ul>
           </div>
         </nav>
@@ -130,7 +142,6 @@
     </section>
 
     {% endblock %}
-
     <!--Footer section-->
     <footer class="page-footer font-small bg-dark" style="padding-top: 1em">
 

@@ -25,18 +25,54 @@ def register(request):
         username = request.POST['username']
         password = request.POST['password']
         mobile = request.POST['mobile']
-        image = request.POST['image']
+        image = request.FILES.get('image')
         user = request.POST['SelectUser']
 
         if user == 'student':
             standard = request.POST['standard']
             new = Student(name=name, standard=standard, username=username, password=password, mobile=mobile, image=image)
             new.save()
+            messages.success(request, "Registration completed")
             return redirect(register)
         elif user == 'teacher':
             email = request.POST['email_id']
             new = Teacher(name=name, username=username, password=password, mobile=mobile, image=image, email=email)
             new.save()
+            messages.success(request, "Registration completed")
             return redirect(register)
     else:
         return render(request, 'register.html')
+
+
+def login_check(request):
+    uname = request.POST['username']
+    pword = request.POST['password']
+    user = request.POST['user']
+    if user == "teacher":
+        if Teacher.objects.filter(username=uname,password=pword).exists():
+            teacher_details = Teacher.objects.get(username=uname)
+            request.session['name'] = teacher_details.name
+            request.session['username'] = teacher_details.username
+            request.session['password'] = teacher_details.password
+            request.session['mobile'] = teacher_details.mobile
+            request.session['email'] = teacher_details.email
+            request.session['user'] = user
+            request.session['id'] = teacher_details.id
+            return render(request, 'teacher_dashboard.html')
+
+
+def dashboard(request):
+    if request.session['user'] == "teacher":
+        return render(request, 'teacher_dashboard.html')
+    else:
+        pass
+
+
+def logout(request):
+    del request.session['name']
+    del request.session['username']
+    del request.session['password']
+    del request.session['mobile']
+    del request.session['email']
+    del request.session['user']
+    return redirect(home)
