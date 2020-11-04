@@ -1,0 +1,28 @@
+{% extends 'common_dashboard.html' %}
+{% block title %}My Account {% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="bg-light w-100 p-3 mt-3">
+        <h3 class="ml-5 text-info">Your info</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-6 m-5">
+            <img class="img-fluid rounded-circle" src="{{user.image.url}}" style="height: 32em; width: 25em" alt="Image not found">
+        </div>
+        <div class="col-md-4" style="margin-top: 10em">
+            <p>Name: {{user.name}}</p>
+            <p>Mobile: {{user.mobile}}</p>
+            <p>Email: {{user.email}}</p>
+            <p>Username: {{user.username}}</p>
+            <div class="row">
+                <a href="#"><button class="btn btn-primary m-4" style="margin-top: 2em">Update info</button></a>
+                <a href="#"><button class="btn btn-primary m-4" style="margin-top: 2em">Change password</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -68,6 +68,13 @@ def dashboard(request):
         pass
 
 
+def my_account(request):
+    if request.session['user'] == "teacher":
+        user_id = request.session['id']
+        user_details = Teacher.objects.get(id=user_id)
+        return render(request, 'teacher_account.html', {'user':user_details})
+
+
 def logout(request):
     del request.session['name']
     del request.session['username']

@@ -2,9 +2,65 @@
 {% block title %} {{request.session.name}} | OES {% endblock %}
 
 {% block content %}
-<h3>Welcome {{request.session.name}}</h3>
 
+<div class="container">
 
+    <!-- add section-->
+    <div class="bg-light w-100 p-3 mt-3">
+        <h3 class="ml-5 text-info">Add</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center" style="width: max; margin: 1em; color: #008080">
+              <i class="fa fa-graduation-cap fa-5x mt-2"></i>
+              <div class="card-body">
+                <h5 class="card-title">Add Course</h5>
+                <p class="card-text">Click the below link to add a new course</p>
+                <a href="#" class="btn btn-primary">Click here</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center" style="width: max; margin: 1em; color: #008080">
+              <i class="fa fa-graduation-cap fa-5x mt-2"></i>
+              <div class="card-body">
+                <h5 class="card-title">Add Exam</h5>
+                <p class="card-text">Click the below link to add a new exam</p>
+                <a href="#" class="btn btn-primary">Click here</a>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!--add section-->
 
+    <!--report section-->
+    <div class="bg-light w-100 p-3 mt-3">
+        <h3 class="ml-5 text-info">Reports</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center" style="width: max; margin: 1em; color: #008080">
+              <i class="fa fa-graduation-cap fa-5x mt-2"></i>
+              <div class="card-body">
+                <h5 class="card-title">Students</h5>
+                <p class="card-text">Click the below link to show the student details</p>
+                <a href="#" class="btn btn-primary">Click here</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center" style="width: max; margin: 1em; color: #008080">
+              <i class="fa fa-graduation-cap fa-5x mt-2"></i>
+              <div class="card-body">
+                <h5 class="card-title">Results</h5>
+                <p class="card-text">Click the below link to see the results of the exams attended</p>
+                <a href="#" class="btn btn-primary">Click here</a>
+              </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
 {% endblock %}
 
