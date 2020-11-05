@@ -1,0 +1,36 @@
+{% extends 'common_dashboard.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="bg-light w-100 p-3 mt-3">
+            <h3 class="ml-5 text-info">Question</h3>
+        </div>
+        <form class="p-5" method="POST">
+            {% csrf_token %}
+            <label for="InputQuestion4">Question</label><br>
+            <textarea class="form-group w-100" rows="4" cols="50" id="InputQuestion4" name="question" placeholder="Type your question here"></textarea><br>
+            <label mt-2>Type your options</label>
+            <div class="form-row">
+                <input class="form-group ml-2" style="width: 48%" name="option1" type="text" placeholder="option1">
+                <input class="form-group ml-2" style="width: 48%" name="option2" type="text" placeholder="option2">
+            </div>
+            <div class="form-row">
+                <input class="form-group ml-2" style="width: 48%" name="option3" type="text" placeholder="option3">
+                <input class="form-group ml-2" style="width: 48%" name="option4" type="text" placeholder="option4">
+            </div>
+            <label class="mt-2">Enter the correct answer</label>
+            <div class="form-row">
+                <input class="form-group m-2 w-100"  name="correct_answer" type="text" placeholder="correct-answer">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

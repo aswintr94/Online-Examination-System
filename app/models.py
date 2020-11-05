@@ -19,3 +19,12 @@ class Teacher(models.Model):
     mobile = models.CharField(max_length=15)
     email = models.EmailField(null=True)
     image = models.FileField(upload_to='teachers')
+
+
+class Questions(models.Model):
+    question = models.TextField()
+    option1 = models.CharField(max_length=100)
+    option2 = models.CharField(max_length=100)
+    option3 = models.CharField(max_length=100)
+    option4 = models.CharField(max_length=100)
+    correct_answer = models.CharField(max_length=100)

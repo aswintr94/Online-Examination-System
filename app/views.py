@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Student, Teacher
+from .models import Student, Teacher, Questions
 from django.contrib import messages
 
 # Create your views here.
@@ -73,6 +73,21 @@ def my_account(request):
         user_id = request.session['id']
         user_details = Teacher.objects.get(id=user_id)
         return render(request, 'teacher_account.html', {'user':user_details})
+
+
+def add_question(request):
+    if request.method == "POST":
+        qn = request.POST['question']
+        op1 = request.POST['option1']
+        op2 = request.POST['option2']
+        op3 = request.POST['option3']
+        op4 = request.POST['option4']
+        correct = request.POST['correct_answer']
+        new_qn = Questions(question=qn, option1=op1, option2=op2, option3=op3, option4=op4, correct_answer=correct)
+        new_qn.save()
+        return redirect(add_question)
+    else:
+        return render(request, 'add_question.html')
 
 
 def logout(request):
