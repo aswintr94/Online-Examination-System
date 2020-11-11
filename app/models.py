@@ -5,10 +5,10 @@ from django.db import models
 
 class Student(models.Model):
     name = models.CharField(max_length=30)
-    standard = models.IntegerField(null=True)
     username = models.CharField(max_length=10)
     password = models.CharField(max_length=10)
     mobile = models.CharField(max_length=15)
+    email = models.EmailField(null=True)
     image = models.FileField(upload_to='students', null=True)
 
 

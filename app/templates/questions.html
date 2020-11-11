@@ -1,0 +1,36 @@
+{% extends 'common_dashboard.html' %}
+{% block title %} Questions {% endblock %}
+
+{% block content %}
+<div class="m-5">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Question</th>
+        <th scope="col">option1</th>
+        <th scope="col">option2</th>
+        <th scope="col">option3</th>
+        <th scope="col">option4</th>
+        <th scope="col">Correct option</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for question in questions %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{question.question}}</td>
+        <td>{{question.option1}}</td>
+        <td>{{question.option2}}</td>
+        <td>{{question.option3}}</td>
+        <td>{{question.option4}}</td>
+        <td>{{question.correct_answer}}</td>
+        <td><a href="#">Delete</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

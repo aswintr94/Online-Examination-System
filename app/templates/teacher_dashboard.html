@@ -44,7 +44,7 @@
               <div class="card-body">
                 <h5 class="card-title">Students</h5>
                 <p class="card-text">Click the below link to show the student details</p>
-                <a href="#" class="btn btn-primary">Click here</a>
+                <a href="{% url 'view_students' %}" class="btn btn-primary">Click here</a>
               </div>
             </div>
         </div>
@@ -55,6 +55,16 @@
                 <h5 class="card-title">Results</h5>
                 <p class="card-text">Click the below link to see the results of the exams attended</p>
                 <a href="#" class="btn btn-primary">Click here</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center" style="width: max; margin: 1em; color: #008080">
+              <i class="fa fa-graduation-cap fa-5x mt-2"></i>
+              <div class="card-body">
+                <h5 class="card-title">Questions</h5>
+                <p class="card-text">Click the below link to see all the questions</p>
+                <a href="{% url 'view_questions' %}" class="btn btn-primary">Click here</a>
               </div>
             </div>
         </div>

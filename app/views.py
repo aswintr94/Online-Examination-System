@@ -90,6 +90,16 @@ def add_question(request):
         return render(request, 'add_question.html')
 
 
+def view_questions(request):
+    questions = Questions.objects.all()
+    return render(request, 'questions.html', {'questions': questions})
+
+
+def view_students(request):
+    students = Student.objects.all()
+    return render(request, 'student_report.html', {'students':students})
+
+
 def logout(request):
     del request.session['name']
     del request.session['username']
