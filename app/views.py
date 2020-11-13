@@ -59,20 +59,35 @@ def login_check(request):
             request.session['user'] = user
             request.session['id'] = teacher_details.id
             return render(request, 'teacher_dashboard.html')
+    else:
+        if Student.objects.filter(username=uname,password=pword).exists():
+            student_details = Student.objects.get(username=uname)
+            request.session['name'] = student_details.name
+            request.session['username'] = student_details.username
+            request.session['password'] = student_details.password
+            request.session['mobile'] = student_details.mobile
+            request.session['email'] = student_details.email
+            request.session['user'] = user
+            request.session['id'] = student_details.id
+            return render(request, 'student_dashboard.html')
 
 
 def dashboard(request):
     if request.session['user'] == "teacher":
         return render(request, 'teacher_dashboard.html')
     else:
-        pass
+        return render(request, 'student_dashboard.html')
 
 
 def my_account(request):
     if request.session['user'] == "teacher":
         user_id = request.session['id']
         user_details = Teacher.objects.get(id=user_id)
-        return render(request, 'teacher_account.html', {'user':user_details})
+        return render(request, 'my_account.html', {'user': user_details})
+    else:
+        user_id = request.session['id']
+        user_details = Student.objects.get(id=user_id)
+        return render(request, 'my_account.html', {'user': user_details})
 
 
 def add_question(request):
@@ -97,7 +112,12 @@ def view_questions(request):
 
 def view_students(request):
     students = Student.objects.all()
-    return render(request, 'student_report.html', {'students':students})
+    return render(request, 'student_report.html', {'students': students})
+
+
+def attend_exam(request):
+    questions =  Questions.objects.all()
+    return render(request, 'exam.html', {'questions': questions})
 
 
 def logout(request):

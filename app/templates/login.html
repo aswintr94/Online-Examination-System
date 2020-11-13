@@ -13,7 +13,7 @@
             <h5>LOGIN TO YOUR ACCOUNT</h5>
         </div>
         <div class="mt-4">
-            <form action="{% url 'login_check' %}" method="post">
+            <form name="LoginForm" onsubmit="return (validate())" action="{% url 'login_check' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <input class="form-control" name="username" type="text" placeholder="Username">
@@ -22,8 +22,8 @@
                     <input class="form-control" name="password" type="password" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <input type="radio" name="user" value="student">Student</input>
-                    <input type="radio" name="user" value="teacher">Teacher</input>
+                    <input type="radio" id="student" name="user" value="student">Student</input>
+                    <input type="radio" id="teacher" name="user" value="teacher">Teacher</input>
                 </div>
                 <button class="btn btn-secondary btn-block" type="submit">Login</button>
             </form>
@@ -32,6 +32,29 @@
 
 
 </div>
+<script type="text/javascript">
 
+    function validate()
+    {
+        if (document.LoginForm.username.value == "")
+        {
+            alert("Please enter the username");
+            document.LoginForm.username.focus();
+            return false;
+        }
+        if (document.LoginForm.password.value == "")
+        {
+            alert("Please enter the password");
+            document.LoginForm.password.focus();
+            return false;
+        }
+        if (document.getElementById('student').checked == false && document.getElementById('teacher').checked == false)
+        {
+            alert("Select the user");
+            return false;
+        }
+    }
+
+</script>
 
 {% endblock %}

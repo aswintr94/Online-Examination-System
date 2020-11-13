@@ -1,0 +1,21 @@
+{% extends 'common_dashboard.html' %}
+{% block title %} Exam {% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="bg-light w-100 p-3 mt-3">
+        <h3 class="ml-5 text-info">Exam</h3>
+    </div>
+    <form>
+        {% for question in questions %}
+        <div class="p-4">
+            <p>{{forloop.counter}}. {{question.question}}</p>
+            <input type="radio" value="{{question.option1}}">{{question.option1}}</input><br>
+            <input type="radio" value="{{question.option2}}">{{question.option2}}</input><br>
+            <input type="radio" value="{{question.option3}}">{{question.option3}}</input><br>
+            <input type="radio" value="{{question.option4}}">{{question.option4}}</input><br>
+        </div>
+        {% endfor %}
+    </form>
+</div>
+{% endblock %}
