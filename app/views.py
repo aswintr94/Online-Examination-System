@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Student, Teacher, Questions
+from .models import Student, Teacher, Questions, Results
 from django.contrib import messages
+
 
 # Create your views here.
 def home(request):
@@ -116,8 +117,33 @@ def view_students(request):
 
 
 def attend_exam(request):
-    questions =  Questions.objects.all()
+    questions = Questions.objects.all()
     return render(request, 'exam.html', {'questions': questions})
+
+
+def my_results(request):
+    result = Results.objects.get(student_id__name=request.session['name'])
+    return render(request, 'my_result.html', {'result': result})
+
+
+def check_answers(request):
+    temp = 0
+    questions = Questions.objects.all()
+    for i in questions:
+        option = str(i.id)+'option'
+        selected_answer = request.POST.get(option)
+        correct_answer = request.POST.get(str(i.id)+'correct')
+        if selected_answer == correct_answer:
+            temp += 1
+    student = Student.objects.get(id=request.session['id'])
+    marks = str(temp) + " out of " + str(len(questions))
+    if Results.objects.filter(student_id__name=request.session['name']).exists():
+        messages.warning(request, "You have already attended the exam")
+        return redirect(attend_exam)
+    else:
+        result = Results(student=student, marks=marks)
+        result.save()
+        return redirect(my_results)
 
 
 def logout(request):

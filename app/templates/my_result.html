@@ -1,0 +1,30 @@
+{% extends 'common_dashboard.html' %}
+{% block title %} My results {% endblock %}
+{% block content %}
+
+
+<div style="margin-left: 5%; margin-top: 2%" class="container p-3">
+    <div class="bg-light w-100 p-3 mb-4">
+        <h3 class="ml-5">MY RESULTS</h3>
+    </div>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Marks</th>
+          <th scope="col">Attended on</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>{{result.student.name}}</td>
+          <td>{{result.marks}}</td>
+          <td>{{result.attended_date}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -28,3 +28,9 @@ class Questions(models.Model):
     option3 = models.CharField(max_length=100)
     option4 = models.CharField(max_length=100)
     correct_answer = models.CharField(max_length=100)
+
+
+class Results(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    attended_date = models.DateTimeField(auto_now_add=True)
+    marks = models.CharField(max_length=20, null=True)
