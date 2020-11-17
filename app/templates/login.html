@@ -13,7 +13,7 @@
             <h5>LOGIN TO YOUR ACCOUNT</h5>
         </div>
         <div class="mt-4">
-            <form name="LoginForm" onsubmit="return (validate())" action="{% url 'login_check' %}" method="post">
+            <form name="LoginForm" onsubmit="return (validate())" action="" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <input class="form-control" name="username" type="text" placeholder="Username">

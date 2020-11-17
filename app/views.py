@@ -19,7 +19,34 @@ def contact_us(request):
 
 
 def login(request):
-    return render(request, 'login.html')
+    if request.method == "POST":
+        uname = request.POST['username']
+        pword = request.POST['password']
+        user = request.POST['user']
+        if user == "teacher":
+            if Teacher.objects.filter(username=uname, password=pword).exists():
+                teacher_details = Teacher.objects.get(username=uname)
+                request.session['name'] = teacher_details.name
+                request.session['username'] = teacher_details.username
+                request.session['password'] = teacher_details.password
+                request.session['mobile'] = teacher_details.mobile
+                request.session['email'] = teacher_details.email
+                request.session['user'] = user
+                request.session['id'] = teacher_details.id
+                return render(request, 'teacher_dashboard.html')
+        else:
+            if Student.objects.filter(username=uname, password=pword).exists():
+                student_details = Student.objects.get(username=uname)
+                request.session['name'] = student_details.name
+                request.session['username'] = student_details.username
+                request.session['password'] = student_details.password
+                request.session['mobile'] = student_details.mobile
+                request.session['email'] = student_details.email
+                request.session['user'] = user
+                request.session['id'] = student_details.id
+                return render(request, 'student_dashboard.html')
+    else:
+        return render(request, 'login.html')
 
 
 def register(request):
@@ -45,34 +72,6 @@ def register(request):
             return redirect(register)
     else:
         return render(request, 'register.html')
-
-
-def login_check(request):
-    uname = request.POST['username']
-    pword = request.POST['password']
-    user = request.POST['user']
-    if user == "teacher":
-        if Teacher.objects.filter(username=uname,password=pword).exists():
-            teacher_details = Teacher.objects.get(username=uname)
-            request.session['name'] = teacher_details.name
-            request.session['username'] = teacher_details.username
-            request.session['password'] = teacher_details.password
-            request.session['mobile'] = teacher_details.mobile
-            request.session['email'] = teacher_details.email
-            request.session['user'] = user
-            request.session['id'] = teacher_details.id
-            return render(request, 'teacher_dashboard.html')
-    else:
-        if Student.objects.filter(username=uname,password=pword).exists():
-            student_details = Student.objects.get(username=uname)
-            request.session['name'] = student_details.name
-            request.session['username'] = student_details.username
-            request.session['password'] = student_details.password
-            request.session['mobile'] = student_details.mobile
-            request.session['email'] = student_details.email
-            request.session['user'] = user
-            request.session['id'] = student_details.id
-            return render(request, 'student_dashboard.html')
 
 
 def dashboard(request):
@@ -161,35 +160,35 @@ def view_students(request):
 
 
 def attend_exam(request):
-    questions = Questions.objects.all()
-    return render(request, 'exam.html', {'questions': questions})
+    if request.method == "POST":
+        temp = 0
+        your_answers = dict()
+        questions = Questions.objects.all()
+        for i in questions:
+            option = str(i.id) + 'option'
+            selected_answer = request.POST.get(option)
+            correct_answer = request.POST.get(str(i.id) + 'correct')
+            if selected_answer == correct_answer:
+                temp += 1
+        student = Student.objects.get(id=request.session['id'])
+        marks = str(temp) + " out of " + str(len(questions))
+        if Results.objects.filter(student_id__name=request.session['name']).exists():
+            messages.warning(request, "You have already attended the exam")
+            return redirect(my_results)
+        else:
+            result = Results(student=student, marks=marks)
+            result.save()
+            questions = Questions.objects.all()
+            return render(request, 'exam_analysis.html',
+                          {'questions': questions, 'marks': temp, 'number': len(questions)})
+    else:
+        questions = Questions.objects.all()
+        return render(request, 'exam.html', {'questions': questions})
 
 
 def my_results(request):
     result = Results.objects.get(student_id__name=request.session['name'])
     return render(request, 'my_result.html', {'result': result})
-
-
-def check_answers(request):
-    temp = 0
-    your_answers = dict()
-    questions = Questions.objects.all()
-    for i in questions:
-        option = str(i.id)+'option'
-        selected_answer = request.POST.get(option)
-        correct_answer = request.POST.get(str(i.id)+'correct')
-        if selected_answer == correct_answer:
-            temp += 1
-    student = Student.objects.get(id=request.session['id'])
-    marks = str(temp) + " out of " + str(len(questions))
-    if Results.objects.filter(student_id__name=request.session['name']).exists():
-        messages.warning(request, "You have already attended the exam")
-        return redirect(dashboard)
-    else:
-        result = Results(student=student, marks=marks)
-        result.save()
-        questions = Questions.objects.all()
-        return render(request, 'exam_analysis.html', {'questions': questions, 'marks': temp, 'number': len(questions)})
 
 
 def all_results(request):

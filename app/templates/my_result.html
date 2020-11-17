@@ -7,6 +7,20 @@
     <div class="bg-light w-100 p-3 mb-4">
         <h3 class="ml-5">MY RESULTS</h3>
     </div>
+    <!--alert for attending exam twice-->
+    {% if messages %}
+        {% for message in messages %}
+        {% if message.tags %}
+        <div class="alert alert-{{ messages.tags }} alert-dismissible bg-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+
+        {% endif %}
+        {% endfor %}
+    {% endif %}
     <table class="table">
       <thead class="thead-dark">
         <tr>

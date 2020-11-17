@@ -6,24 +6,7 @@
     <div class="bg-light w-100 p-3 mt-3">
         <h3 class="ml-5 text-info">Exam</h3>
     </div>
-
-    <!--alert for attending exam twice-->
-    {% if messages %}
-        {% for message in messages %}
-        {% if message.tags %}
-        <div class="alert alert-{{ messages.tags }} alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ message }}
-        </div>
-
-        {% endif %}
-        {% endfor %}
-    {% endif %}
-
-
-    <form class="p-4" method="post" action="{% url 'check_answers' %}">
+    <form class="p-4" method="post" action="">
         {% csrf_token %}
         {% for question in questions %}
         <div class="p-4">
