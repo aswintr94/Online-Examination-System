@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Student, Teacher, Questions, Results
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
+from django.utils.datastructures import MultiValueDictKeyError
 
 
 # Create your views here.
@@ -91,6 +93,48 @@ def my_account(request):
         return render(request, 'my_account.html', {'user': user_details})
 
 
+def update_user_info(request):
+    if request.session['user'] == "teacher":
+        if request.method == "POST":
+            name = request.POST.get('name')
+            username = request.POST.get('username')
+            mobile = request.POST.get('mobile')
+            email = request.POST.get('email_id')
+            try:
+                image = request.FILES['image']
+                fs = FileSystemStorage()
+                loc = "teachers/%s"%image.name
+                image = fs.save(loc, image)
+            except MultiValueDictKeyError:
+                user = Teacher.objects.get(id = request.session.get('id'))
+                image = user.image
+
+            Teacher.objects.filter(id=request.session.get('id')).update(name=name, username=username, mobile=mobile, email=email, image=image)
+            return redirect(my_account)
+        else:
+            user_info = Teacher.objects.get(id=request.session.get('id'))
+            return render(request, 'update.html', {'user_info': user_info})
+    else:
+        if request.method == "POST":
+            name = request.POST.get('name')
+            username = request.POST.get('username')
+            mobile = request.POST.get('mobile')
+            email = request.POST.get('email_id')
+            try:
+                image = request.FILES['image']
+                fs = FileSystemStorage()
+                loc = "students/%s"%image.name
+                image = fs.save(loc, image)
+            except MultiValueDictKeyError:
+                user = Student.objects.get(id=request.session.get('id'))
+                image = user.image
+            Student.objects.filter(id=request.session.get('id')).update(name=name, username=username, email=email, mobile=mobile, image=image)
+            return redirect(my_account)
+        else:
+            user_info = Student.objects.get(id=request.session.get('id'))
+            return render(request, 'update.html', {'user_info': user_info})
+
+
 def add_question(request):
     if request.method == "POST":
         qn = request.POST['question']
@@ -128,6 +172,7 @@ def my_results(request):
 
 def check_answers(request):
     temp = 0
+    your_answers = dict()
     questions = Questions.objects.all()
     for i in questions:
         option = str(i.id)+'option'
@@ -139,11 +184,17 @@ def check_answers(request):
     marks = str(temp) + " out of " + str(len(questions))
     if Results.objects.filter(student_id__name=request.session['name']).exists():
         messages.warning(request, "You have already attended the exam")
-        return redirect(attend_exam)
+        return redirect(dashboard)
     else:
         result = Results(student=student, marks=marks)
         result.save()
-        return redirect(my_results)
+        questions = Questions.objects.all()
+        return render(request, 'exam_analysis.html', {'questions': questions, 'marks': temp, 'number': len(questions)})
+
+
+def all_results(request):
+    result = Results.objects.all()
+    return render(request, 'all_results.html', {'results': result})
 
 
 def logout(request):

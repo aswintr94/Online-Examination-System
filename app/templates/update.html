@@ -1,0 +1,40 @@
+{% extends 'common_dashboard.html' %}
+{% block title %} Update your details {% endblock %}
+{% block content %}
+
+<div class="bg-light w-100 p-3 mt-3">
+    <h3 class="ml-5">Update your info</h3>
+</div>
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label for="inputName4">Name</label>
+          <input type="text" class="form-control" name="name" id="inputName4" value="{{user_info.name}}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" name="username" id="inputUsername" value="{{user_info.username}}">
+      </div>
+      <div class="form-group">
+        <label for="inputMobile2">Mobile Number</label>
+        <input type="tel" class="form-control" name="mobile" id="inputMobile2" value="{{user_info.mobile}}">
+      </div>
+      <div class="form-group">
+        <label for="inputEmail2">Email ID</label>
+        <input type="email" class="form-control" name="email_id" id="inputEmail2" value="{{user_info.email}}">
+      </div>
+      <div class="form-group">
+          <label for="">Upload your image</label>
+          <input type="file" class="form-control-file" id="image" name="image">
+          <img src="{{user_info.image.url}}" alt="No image" width="80px" height="100px">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block m-5">Update</button>
+    </form>
+</div>
+
+
+
+{% endblock %}

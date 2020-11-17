@@ -10,11 +10,13 @@ urlpatterns = [
     path('login_check/', views.login_check, name='login_check'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('my_account/', views.my_account, name='my_account'),
+    path('update_user_info/', views.update_user_info, name='update_user_info'),
     path('add_question/', views.add_question, name='add_question'),
     path('view_questions/', views.view_questions, name='view_questions'),
     path('view_students/', views.view_students, name='view_students'),
     path('attend_exam/', views.attend_exam, name='attend_exam'),
     path('check_answers/', views.check_answers, name='check_answers'),
     path('my_results/', views.my_results, name='my_results'),
+    path('all_results/', views.all_results, name='all_results'),
     path('logout/', views.logout, name='logout'),
 ]

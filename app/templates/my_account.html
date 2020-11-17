@@ -16,7 +16,7 @@
             <p>Email: {{user.email}}</p>
             <p>Username: {{user.username}}</p>
             <div class="row">
-                <a href="#"><button class="btn btn-primary m-4" style="margin-top: 2em">Update info</button></a>
+                <a href="{% url 'update_user_info' %}"><button class="btn btn-primary m-4" style="margin-top: 2em">Update info</button></a>
                 <a href="#"><button class="btn btn-primary m-4" style="margin-top: 2em">Change password</button></a>
             </div>
         </div>
