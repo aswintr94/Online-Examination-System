@@ -7,27 +7,31 @@
         <h3 class="ml-5 text-info">Results</h3>
     </div>
     <div class="m-5">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Attended on</th>
-        <th scope="col">Marks</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for result in results %}
-      <tr>
-        <th scope="row">{{forloop.counter}}</th>
-        <td>{{result.student.name}}</td>
-        <td>{{result.attended_date}}</td>
-        <td>{{result.marks}}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-</div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Attended on</th>
+            <th scope="col">Marks</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{result.student.name}}</td>
+            <td>{{result.attended_date}}</td>
+            <td>{{result.marks}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  <div class="mr-4 p-4">
+    <p>Click to delete all results and publish new exam</p>
+    <a href="{% url 'delete_results' %}" onclick="return confirm('Click OK to confirm')" class="btn btn-primary">Click here</a>
+  </div>
 </div>
 
 

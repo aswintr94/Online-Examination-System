@@ -6,6 +6,19 @@
     <div class="bg-light w-100 p-3 mt-3">
         <h3 class="ml-5 text-info">Your info</h3>
     </div>
+    {% if messages %}
+        {% for message in messages %}
+        {% if message.tags %}
+        <div class="alert alert-{{ messages.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+
+        {% endif %}
+        {% endfor %}
+    {% endif %}
     <div class="row">
         <div class="col-md-6 m-5">
             <img class="img-fluid rounded-circle" src="{{user.image.url}}" style="height: 32em; width: 25em" alt="Image not found">
@@ -17,7 +30,7 @@
             <p>Username: {{user.username}}</p>
             <div class="row">
                 <a href="{% url 'update_user_info' %}"><button class="btn btn-primary m-4" style="margin-top: 2em">Update info</button></a>
-                <a href="#"><button class="btn btn-primary m-4" style="margin-top: 2em">Change password</button></a>
+                <a href="{% url 'change_password' %}"><button class="btn btn-primary m-4" style="margin-top: 2em">Change password</button></a>
             </div>
         </div>
     </div>

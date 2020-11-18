@@ -26,11 +26,15 @@
         <td>{{question.option3}}</td>
         <td>{{question.option4}}</td>
         <td>{{question.correct_answer}}</td>
-        <td><a href="#">Delete</a></td>
+        <td><a href="{% url 'delete_question' q_id=question.id %}" onclick="return confirm('Are you sure?')">Delete</a></td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
+  <div style="background-color: cyan" class="mr-4 p-4">
+    <p>Click to delete all questions</p>
+    <a href="{% url 'delete_all_questions' %}" onclick="return confirm('Click OK to confirm')" class="btn btn-primary">Click here</a>
+  </div>
 </div>
 
 {% endblock %}

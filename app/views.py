@@ -34,6 +34,9 @@ def login(request):
                 request.session['user'] = user
                 request.session['id'] = teacher_details.id
                 return render(request, 'teacher_dashboard.html')
+            else:
+                messages.error(request, "Check your username and password")
+                return redirect(login)
         else:
             if Student.objects.filter(username=uname, password=pword).exists():
                 student_details = Student.objects.get(username=uname)
@@ -45,6 +48,9 @@ def login(request):
                 request.session['user'] = user
                 request.session['id'] = student_details.id
                 return render(request, 'student_dashboard.html')
+            else:
+                messages.error(request, "Check your username and password")
+                return redirect(login)
     else:
         return render(request, 'login.html')
 
@@ -134,6 +140,31 @@ def update_user_info(request):
             return render(request, 'update.html', {'user_info': user_info})
 
 
+def change_password(request):
+    if request.method == "POST":
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        email_id = request.POST.get('email_id')
+        if request.session['user'] == "teacher":
+            if Teacher.objects.filter(password=current_password, email=email_id).exists():
+                Teacher.objects.filter(password=current_password, email=email_id).update(password=new_password)
+                messages.success(request, "Password changed successfully")
+                return redirect(my_account)
+            else:
+                messages.error(request, "You entered a wrong password")
+                return redirect(my_account)
+        else:
+            if Student.objects.filter(password=current_password, email=email_id).exists():
+                Student.objects.filter(password=current_password, email=email_id).update(password=new_password)
+                messages.success(request, "Password changed successfully")
+                return redirect(my_account)
+            else:
+                messages.error(request, "You entered a wrong password")
+                return redirect(my_account)
+    else:
+        return render(request, 'change_password.html')
+
+
 def add_question(request):
     if request.method == "POST":
         qn = request.POST['question']
@@ -152,6 +183,18 @@ def add_question(request):
 def view_questions(request):
     questions = Questions.objects.all()
     return render(request, 'questions.html', {'questions': questions})
+
+
+def delete_all_questions(request):
+    questions = Questions.objects.all()
+    questions.delete()
+    return redirect(add_question)
+
+
+def delete_question(request, q_id):
+    question = Questions.objects.get(id=q_id)
+    question.delete()
+    return redirect(view_questions)
 
 
 def view_students(request):
@@ -194,6 +237,12 @@ def my_results(request):
 def all_results(request):
     result = Results.objects.all()
     return render(request, 'all_results.html', {'results': result})
+
+
+def delete_results(request):
+    results = Results.objects.all()
+    results.delete()
+    return redirect(add_question)
 
 
 def logout(request):
